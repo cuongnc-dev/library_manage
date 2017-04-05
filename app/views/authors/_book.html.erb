@@ -1,0 +1,51 @@
+<div class="item col-xs-3 col-lg-3" id="item-<%= book.id %>">
+  <div class="thumbnail">
+    <%= link_to book_path(book), remote: true do %>
+      <%= image_tag book.image, alt: t("books.image_alt") %>
+      <div class="caption">
+        <h3 class="group inner list-group-item-heading" data-toggle="tooltip"
+          data-placement="bottom" data-original-title="<%= book.title %>">
+          <%= book.title %>
+        </h3>
+        <p class="group inner list-group-item-text">
+          <%= t("author") + ": " + book.author_name %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="item-<%= book.id %> item-hidden">
+  <div class="item-img">
+    <%= image_tag book.image, alt: t("books.image_alt") %>
+  </div>
+  <div class="item-info">
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <th><%= t("books.title") + ":" %></th>
+          <td><%= book.title %></td>
+        </tr>
+        <tr>
+          <th><%= t("author") + ":" %></th>
+          <td><%= book.author_name %></td>
+        </tr>
+        <tr>
+          <th><%= t("category") + ":" %></th>
+          <td><%= book.subcategory_name %></td>
+        </tr>
+        <tr>
+          <th><%= t("publisher") + ":" %></th>
+          <td><%= book.publisher_name %></td>
+        </tr>
+        <tr>
+          <th><%= t("books.page_number") + ":" %></th>
+          <td><%= book.page_number %></td>
+        </tr>
+        <tr>
+          <th><%= t("books.description") + ":" %></th>
+          <td><%= raw info_description_limit book.description %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

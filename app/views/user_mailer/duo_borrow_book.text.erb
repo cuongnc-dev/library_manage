@@ -1,0 +1,10 @@
+<%= t("hi") + " " + @user.name %>,
+
+<%= t "duo_borrow_book_body" %>
+<% @requests.each do |request| %>
+  <%= t("book") + ": " + request.book_title %>
+  <%= t("start_day") + ": " %><%= request.start_day.strftime("%d/%m/%Y") %>
+  <%= t("end_day") + ": " %><%= request.end_day.strftime("%d/%m/%Y") %>
+  <%= t("message") + ": " + request.content %>
+<% end %>
+<%= link_to t("view_all_request"), requests_url %>

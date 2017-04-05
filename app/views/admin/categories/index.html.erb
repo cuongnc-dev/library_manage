@@ -1,0 +1,44 @@
+<div class="manage">
+  <div class="btn-head">
+    <%= link_to t("categories.new_category"), new_admin_category_path, remote: true,
+      class: "btn btn-success btn-new" %>
+  </div>
+  <div class="panel panel-default filterable">
+    <div class="header">
+      <button class="btn btn-default btn-xs btn-filter">
+        <span class="glyphicon glyphicon-filter"></span>
+      </button>
+      <strong><%= t "categories.list_categories" %></strong>
+      <% flash.each do |key, message| %>
+        <span class="alert-<%= key %>"><%= message %></span>
+      <% end %>
+    </div>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="filters">
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "categories.name" %>" disabled>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "index", collection: @categories, as: :category %>
+      </tbody>
+    </table>
+    <%= will_paginate @categories %>
+  </div>
+</div>
+<div class="search-button">
+  <div>
+    <div class="search-by">
+      <%= form_tag admin_categories_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Category" %>
+        <%= text_field_tag :key, params[:key],
+          placeholder: t("search") %>
+      <% end %>
+      <button class="search-by-button"><p><%= t "name" %></p></button>
+    </div>
+  </div>
+  <button class="glyphicon glyphicon-search"></button>
+</div>

@@ -1,0 +1,134 @@
+<div class="manage">
+  <div class="panel panel-default filterable">
+    <div class="header">
+      <button class="btn btn-default btn-xs btn-filter">
+        <span class="glyphicon glyphicon-filter"></span>
+      </button>
+      <strong><%= t "requests.list_request" %></strong>
+      <% flash.each do |key, message| %>
+        <span class="alert-<%= key %>"><%= message %></span>
+      <% end %>
+    </div>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="filters">
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "users.name" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "books.title" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "books.current" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "start_day" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "end_day" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "message" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "status" %>" disabled>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "index", collection: @requests, as: :request %>
+      </tbody>
+    </table>
+    <%= will_paginate @requests %>
+  </div>
+</div>
+<div class="search-button">
+  <div>
+    <div class="search-by">
+      <%= form_tag admin_requests_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Name" %>
+        <%= text_field_tag :key, params[:key],
+          placeholder: t("search") %>
+      <% end %>
+      <button class="search-by-button"><p><%= t "user" %></p></button>
+    </div>
+    <div class="search-by">
+      <%= form_tag admin_requests_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Title" %>
+        <%= text_field_tag :key, params[:key],
+          placeholder: t("search") %>
+      <% end %>
+      <button class="search-by-button"><p><%= t "book" %></p></button>
+    </div>
+    <div class="search-by date">
+      <%= form_tag admin_requests_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Date" %>
+        <div id="key" class="form-group input-group">
+          <p class="form-group has-float-label">
+            <%= select_tag :find_date_by,
+              options_for_select([[t("absolute_start_day"), Settings.zero],
+                [t("relative_start_day"), Settings.one],
+                [t("absolute_end_day"), Settings.two],
+                [t("relative_end_day"), Settings.three],
+                [t("between_start_end"), Settings.four]]),
+              class: "form-control" %>
+            <label for="find_date_by"><%= t "find_by" %></label>
+          </p>
+          <p class="form-group has-float-label">
+            <%= text_field_tag :from_day, nil, class: "form-control",
+              placeholder: " ", readonly: true %>
+            <%= label_tag :from_day, t("from"), for: "from_day" %>
+            <i class="glyphicon glyphicon-remove date-remove"></i>
+          </p>
+          <p class="form-group has-float-label to-day">
+            <%= text_field_tag :to_day, nil, class: "form-control",
+              placeholder: " ", readonly: true %>
+            <%= label_tag :to_day, t("to"), for: "to_day" %>
+            <i class="glyphicon glyphicon-remove date-remove"></i>
+          </p>
+          <p class="form-group has-float-label">
+            <%= submit_tag "OK", name: nil %>
+          </p>
+        </div>
+      <% end %>
+      <button class="search-by-button"><p><%= t "date" %></p></button>
+    </div>
+    <div class="search-by status">
+      <%= form_tag admin_requests_path, method: :get, remote: true do %>
+        <%= hidden_field_tag :find_by, "Status" %>
+        <div id="key" class="form-group input-group">
+          <%= check_box_tag t("processing"), true %>
+          <%= label_tag "Processing", class: "label-checkbox-status" do %>
+            <span></span> <%= t "processing" %>
+          <% end %>
+          <%= check_box_tag t("accepted"), true %>
+          <%= label_tag "Accepted", class: "label-checkbox-status" do %>
+            <span></span> <%= t "accepted" %>
+          <% end %>
+          <%= check_box_tag t("rejected"), true %>
+          <%= label_tag "Rejected", class: "label-checkbox-status" do %>
+            <span></span> <%= t "rejected" %>
+          <% end %>
+          <%= check_box_tag t("borrowed"), true %>
+          <%= label_tag "Borrowed", class: "label-checkbox-status" do %>
+            <span></span> <%= t "borrowed" %>
+          <% end %>
+          <%= check_box_tag t("returned"), true %>
+          <%= label_tag "Returned", class: "label-checkbox-status" do %>
+            <span></span> <%= t "returned" %>
+          <% end %>
+          <%= submit_tag "OK", name: nil, class: "status-submit" %>
+        </div>
+      <% end %>
+      <button class="search-by-button"><p><%= t "status" %></p></button>
+    </div>
+  </div>
+  <button class="glyphicon glyphicon-search"></button>
+</div>

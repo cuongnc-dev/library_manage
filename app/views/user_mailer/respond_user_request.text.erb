@@ -1,0 +1,11 @@
+<%= t("hi") + " " + @request.user_name %>,
+<%= t "respond_user_request_body" %>
+
+<%= t("book") + ": " + @request.book_title %>
+<%= t("start_day") + ": " %><%= @request.start_day.strftime("%d/%m/%Y") %>
+<%= t("end_day") + ": " %><%= @request.end_day.strftime("%d/%m/%Y") %>
+<%= t("message") + ": " + @request.content %>
+<%= t("status") + ": " %><% if @request.accepted? %><%= t "accepted" %><% else %>
+  <%= t "rejected" %><% end %>
+
+<%= t "view_all_request" %> <%= link_to t("my_requests"), requests_url %>

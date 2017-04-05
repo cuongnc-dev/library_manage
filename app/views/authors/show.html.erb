@@ -1,0 +1,68 @@
+<div id="<%= @author.id %>" class="container author-detail">
+  <div class="col-md-8 col-md-offset-2 row">
+    <div class="author-img">
+      <%= image_tag @author.avatar.present? ? @author.avatar : Settings.author_avatar,
+        alt: t("authors.image_alt") %>
+    </div>
+    <div id="<%= @current_follow.id if @current_follow.present? %>"
+      class="author-info">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <th><%= t("name") + ":" %></th>
+            <td><%= @author.name %></td>
+          </tr>
+          <tr>
+            <th><%= t("email") + ":" %></th>
+            <td><%= @author.email %></td>
+          </tr>
+          <tr>
+            <th><%= t("phone") + ":" %></th>
+            <td><%= @author.phone %></td>
+          </tr>
+          <tr>
+            <th><%= t("address") + ":" %></th>
+            <td><%= @author.address %></td>
+          </tr>
+          <tr>
+            <th><%= t("following") + ":" %></th>
+            <td>
+              <i class="total-follow">
+                <%= @follows.present? ? @follows.size : 0 %>
+                <%= t "people_follow" %>
+              </i>
+              <% if logged_in? %>
+                <% if @current_follow %>
+                  <span id="<%= current_user.id %>"
+                    class="btn btn-success follow-author destroy">
+                    <i class="glyphicon glyphicon-ok"></i>
+                    <%= t "following" %>
+                  </span>
+                <% else %>
+                  <span id="<%= current_user.id %>"
+                    class="btn btn-default follow-author create">
+                    <i class="glyphicon glyphicon-check"></i>
+                    <%= t "follow" %>
+                  </span>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="list-book">
+    <div class="row list-group">
+      <% if @books.present? %>
+        <%= render partial: "book", collection: @books, as: :book %>
+      <% else %>
+        <div class="col-md-12"><%= t "books.no_book" %></div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="book-detail">
+  <div class="transparent"></div>
+  <div class="details"></div>
+</div>

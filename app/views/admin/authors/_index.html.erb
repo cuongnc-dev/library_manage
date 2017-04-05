@@ -1,0 +1,33 @@
+<tr>
+  <td>
+    <%= link_to (name_limit author.name), admin_author_path(author),
+      remote: true %>
+  </td>
+  <td>
+    <%= link_to (name_limit author.publisher_name), admin_author_path(author),
+      remote: true %>    
+  </td>
+  <td>
+    <%= link_to (name_limit author.email), admin_author_path(author),
+      remote: true %>    
+  </td>
+  <td>
+    <%= link_to (name_limit author.phone), admin_author_path(author),
+      remote: true %>    
+  </td>
+  <td>
+    <%= link_to (name_limit author.address), admin_author_path(author),
+      remote: true %>    
+  </td>
+  <td class="image">
+    <%= link_to image_tag(author.avatar.present? ? author.avatar : ""),
+      admin_author_path(author), remote: true %>
+    <div class="edit-delete">
+      <%= link_to "", edit_admin_author_path(author), remote: true,
+        class: "glyphicon glyphicon-pencil" %>
+      <%= link_to "", admin_author_path(author), method: :delete,
+        data: {confirm: t("authors.confirm_delete")},
+        class: "glyphicon glyphicon-remove" %>
+    </div>
+  </td>
+</tr>

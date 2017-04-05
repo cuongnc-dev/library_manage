@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= favicon_link_tag Settings.logo %>
+    <title> <%= t "admin_title" %></title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "application", media: "all",
+      "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "application",
+      "data-turbolinks-track": "reload" %>
+    <%= action_cable_meta_tag %>
+    <%= render "layouts/shim"%>
+  </head>
+  <body>
+    <% if logged_in? %>
+      <%= render "layouts/admin_header" %>
+      <%= render "layouts/admin_sidebar" %>
+      <div class="main-content">
+        <%= yield %>
+      </div>
+      <div id="admin-modal" class="modal fade"></div>
+      <div class="fixed-notification"></div>
+    <% else %>
+      <%= yield %>
+    <% end %>
+  </body>
+  <%= javascript_include_tag "admin" %>
+</html>

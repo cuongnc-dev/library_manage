@@ -1,0 +1,7 @@
+<% if @status %>
+  $('.comment-<%= @comment.id %>').fadeOut().remove();
+  var n = $('.list-comments').children().length;
+  if (n == 0) {
+    $('.list-comments').html('<p><%= t "comments.no_comment" %></p>');
+  }
+<% end %>

@@ -1,0 +1,3 @@
+$('#ajax-modal').modal('hide');
+$('#borrow-book').remove();
+$('.borrow-follow-book').prepend('<%= link_to t("view_request"), request_path(@request), method: :get, remote: true, id: "borrow-book", class: "btn btn-success" %>');

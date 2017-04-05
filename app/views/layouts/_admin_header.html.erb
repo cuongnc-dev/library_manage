@@ -1,0 +1,49 @@
+<nav class="navbar navbar-fixed-top header-admin">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li data-user-id="<%= current_user.id %>" class="dropdown">
+          <%= link_to notifications_path, remote: true,
+            class: "dropdown-toggle notification", "data-toggle": "dropdown" do %>
+            <i data-user-id="<%= current_user.id %>"
+              class="glyphicon glyphicon-globe">
+              <% if @new_notifications.present? %>
+                <span class="number-notification">
+                  <%= @new_notifications.size %>
+                </span>
+              <% end %>
+            </i>
+          <% end %>
+          <ul class="notification dropdown-menu"></ul>
+        </li>
+        <li>
+          <%= link_to admin_logout_path, method: "delete" do %>
+            <ul>
+              <li>
+                <%= image_tag current_user.avatar? ? current_user.avatar : Settings.user_avatar %>
+              </li>
+              <li><%= @current_user.name %></li>
+            </ul>
+          <% end %>
+        </li>
+      </ul>
+      <%= form_tag admin_search_path, method: :get,
+        class:"col-md-4 col-md-offset-3 form-header" do %>
+        <%= select_tag :find_by, options_for_select([[t("user")], [t("book")],
+          [t("author")], [t("category")], [t("publisher")]]) %>
+        <%= text_field_tag :key_word, params[:key_word], required: true,
+          placeholder: t("search") %>
+        <%= button_tag "", type: "submit", name: nil,
+          class: "glyphicon glyphicon-search" %>
+      <% end %>
+    </div>
+  </div>
+</nav>

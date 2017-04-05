@@ -1,0 +1,51 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title"><%= @request.book_title %></h3>
+    </div>
+    <div class="modal-body">
+      <div class="form-group has-float-label">
+        <input type="text" class="form-control" name="email"
+          value="<%= @request.user_name %>" disabled >
+        <label for="email"><%= t "email" %></label>
+      </div>
+      <div class="form-group has-float-label">
+        <input type="text" class="form-control" name="request_book_current"
+          value="<%= @request.book_current %>" disabled >
+        <label for="request_book_current"><%= t "books.current" %></label>
+      </div>
+      <div class="form-group has-float-label">
+        <input type="text" class="form-control" name="start_day"
+          value="<%= @request.start_day.strftime('%d/%m/%Y') %>" disabled >
+        <label for="start_day"><%= t "start_day" %></label>
+      </div>
+      <div class="form-group has-float-label">
+        <input type="text" class="form-control" name="end_day"
+          value="<%= @request.end_day.strftime('%d/%m/%Y' %>" disabled >
+        <label for="end_day"><%= t "end_day" %></label>
+      </div>
+      <div class="form-group has-float-label">
+        <input type="text" class="form-control" name="message"
+          value="<%= @request.message %>" disabled >
+        <label for="message"><%= t "message" %></label>
+      </div>
+      <div class="form-group has-float-label">
+        <input type="text" class="form-control"
+          value="<% case when @request.processing? %><%= t "processing" %>
+          <% when @request.accepted? %><%= t "accepted" %>
+          <% when @request.rejected? %><%= t "rejected" %>
+          <% when @request.borrowed? %><%= t "borrowed" %>
+          <% else %><%= t "returned" %>
+          <% end %>" readonly>
+        <label for="status_value"><%= t "status" %></label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <%= link_to t("requests.edit_request"), edit_admin_request_path(@request),
+        class: "edit", remote: true %>
+      <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">
+        <%= t "confirm" %>
+      </button>
+    </div>
+  </div>
+</div>

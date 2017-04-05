@@ -1,0 +1,26 @@
+<div class="modal-dialog modal-sm">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button class="close" data-dismiss="modal" aria-hidden="true">
+        <small><span class="glyphicon glyphicon-remove"></span></small>
+      </button>
+      <h3 class="modal-title"><%= t("categories.new_category") %></h3>
+    </div>
+    <div class="modal-body">
+      <%= form_for [:admin, @subcategory], remote: true do |f| %>
+          <div class="form-group has-float-label">
+            <%= f.text_field :name, class: "form-control",
+              placeholder: t("required") %>
+            <%= f.label :name, t("subcategories.name"), for: "subcategory_name" %>
+          </div>
+          <div class="form-group has-float-label">
+            <%= f.select :category_id,
+              options_for_select(@categories.collect{|c| [c.name, c.id]}), {},
+              class: "form-control custom-select" %>
+            <label for="subcategory_category_id"><%= t "category" %></label>
+          </div>
+        <%= f.submit t("subcategories.add_new"), class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

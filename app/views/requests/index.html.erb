@@ -1,0 +1,14 @@
+<div class="container profile">
+  <div class="row">
+    <%= render "shared/tabs_header" %>
+    <% if @requests.present? %>
+      <%= render partial: "index", collection: @requests, as: :request %>
+    <% else %>
+      <p><%= t "requests.no_request" %></p>
+    <% end %>
+  </div>
+</div>
+<div class="book-detail">
+  <div class="transparent"></div>
+  <div class="details"></div>
+</div>

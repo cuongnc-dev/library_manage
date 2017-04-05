@@ -1,0 +1,27 @@
+<tr>
+  <td><%= link_to (title_limit_book book.title), admin_book_path(book),
+    remote: true %></td>
+  <td><%= link_to (name_limit_book book.author_name), admin_book_path(book),
+    remote: true %></td>
+  <td><%= link_to (name_limit_book book.subcategory_name),
+    admin_book_path(book), remote: true %></td>
+  <td><%= link_to (name_limit_book book.publisher_name),
+    admin_book_path(book), remote: true %></td>
+  <td><%= link_to book.current, admin_book_path(book),
+    remote: true %></td>
+  <td><%= link_to book.page_number, admin_book_path(book),
+    remote: true %></td>
+  <td><%= link_to (raw description_limit book.description),
+    admin_book_path(book), remote: true %></td>
+  <td class="image">
+    <%= link_to image_tag(book.image, alt: t("books.image_alt")),
+      admin_book_path(book), remote: true %>
+    <div class="edit-delete">
+      <%= link_to "", edit_admin_book_path(book), remote: true,
+        class: "glyphicon glyphicon-pencil" %>
+      <%= link_to "", admin_book_path(book), method: :delete,
+        data: {confirm: t("books.confirm_delete")},
+        class: "glyphicon glyphicon-remove" %>
+    </div>
+  </td>
+</tr>

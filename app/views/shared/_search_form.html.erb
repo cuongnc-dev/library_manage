@@ -1,0 +1,20 @@
+<div id="modal-search" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button class="close" data-dismiss="modal" aria-hidden="true">
+          <small><span class="glyphicon glyphicon-remove"></span></small>
+        </button>
+        <%= form_tag books_path, method: :get, id: "search-form",
+          class:"col-xs-8 col-sm-6" do %>
+          <%= select_tag :find_by, options_for_select([[t("book")], [t("author")],
+            [t("category")], [t("publisher")]]) %>
+          <%= text_field_tag :key_word, params[:key_word],
+            placeholder: t("search") %>
+          <%= button_tag "", type: "submit", name: nil,
+            class: "glyphicon glyphicon-search" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

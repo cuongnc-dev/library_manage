@@ -1,0 +1,40 @@
+<% if @status %>
+  content = $('#content').val();
+  $('.list-comments').prepend('<div class="list-group-item comment-<%= @comment.id %>">'
+    + '<div class="row-picture">'
+    + '<%= image_tag current_user.avatar.present? ? current_user.avatar : Settings.user_avatar, alt: t("users.image_alt"), class: "circle" %>'
+    + '</div><div class="row-content"><div class="list-group-item-heading">'
+    + '<%= current_user.name %>'
+    + '<span class="time <%= @comment.id %>">'
+    + '<%= (time_ago_in_words Time.zone.now) << " " << t("ago") %></span>'
+    + '<span class="alert update-message <%= @comment.id %>"></span></div>'
+    + '<p class="list-group-item-text <%= @comment.id %>">' + content + '</p>'
+    + '<div class="list-group-item-text <%= @comment.id %>">'
+    + '<div contentEditable="true" id="<%= @comment.id %>"'
+    + 'class="list-group-item-text <%= @comment.id %>">'+ content + '</div>'
+    + '<button class="glyphicon glyphicon-pencil button-edit-comment"></button>'
+    + '</div></div><% if current_user == @comment.user %>'
+    + '<div class="comment-edit-delete">'
+    + '<%= link_to t("edit"), "#", remote: :true, id: @comment.id, class: "edit-comment" %>'
+    + '<%= link_to t("delete"), comment_path(@comment), remote: true, method: :delete, data: {confirm: t("comments.confirm_delete")} %>'
+    + '</div><% end %></div>'
+  );
+  $('.list-comments').children().first().hide().fadeToggle();
+  $('span.message').addClass('alert-success');
+  $('span.message').html('<%= t "comments.comment_success" %>');
+  $('span.message').fadeIn('slow');
+  $('#content').val("");
+  $('.no-comment').html("");
+  setTimeout(function(){
+    $('span.message').fadeOut('slow');
+    $('span.message').removeClass('alert-success');
+  }, 4000);
+<% else %>
+  $('span.message').addClass('alert-warning');
+  $('span.message').html('<%= t "at_least" %>');
+  $('span.message').fadeIn('slow');
+  setTimeout(function(){
+    $('span.message').fadeOut('slow');
+    $('span.message').removeClass('alert-warning');
+  }, 4000);
+<% end %>

@@ -1,0 +1,28 @@
+<tr>
+  <td><%= name_limit request.user_email %></td>
+  <td><%= name_limit request.book_title %></td>
+  <td><%= request.book_current %></td>
+  <td><%= request.start_day.strftime("%d/%m/%Y") %></td>
+  <td><%= request.end_day.strftime("%d/%m/%Y") %></td>
+  <td><%= request.content %></td>
+  <td class="image">
+    <% case %>
+    <% when request.processing? %>
+      <%= t "processing" %>
+    <% when request.accepted? %>
+      <%= t "accepted" %>
+    <% when request.rejected? %>
+      <%= t "rejected" %>
+    <% when request.borrowed? %>
+      <%= t "borrowed" %>
+    <% else %>
+      <%= t "returned" %>
+    <% end %>
+    <% if !request.returned? %>
+      <div class="edit-delete">
+        <%= link_to "", edit_admin_request_path(request), remote: true,
+          class: "glyphicon glyphicon-pencil" %>
+      </div>
+    <% end %>
+  </td>
+</tr>

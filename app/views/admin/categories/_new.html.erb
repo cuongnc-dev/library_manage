@@ -1,0 +1,17 @@
+<div class="modal-dialog modal-sm">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title"><%= t("categories.new_category") %></h4>
+    </div>
+    <div class="modal-body">
+      <%= form_for [:admin, @category], remote: true do |f| %>
+          <div class="form-group has-float-label">
+            <%= f.text_field :name, class: "form-control", id: "name",
+              placeholder: t("required") %>
+            <%= f.label :name, t("categories.name"), for: "name" %>
+          </div>
+        <%= f.submit t("categories.add_new"), class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

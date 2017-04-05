@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= favicon_link_tag Settings.logo %>
+    <title> <%= t "title" %></title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "application", media: "all",
+      "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "application",
+      "data-turbolinks-track": "reload" %>
+    <%= action_cable_meta_tag %>
+    <%= render "layouts/shim" %>
+  </head>
+  <body>
+    <%= render "layouts/header" %>
+    <%= render "shared/search_form" %>
+    <%= yield %>
+    <div id="ajax-modal" class="modal fade"></div>
+    <div class="fixed-notification"></div>
+    <%= render "layouts/footer" %>
+  </body>
+  <%= javascript_include_tag "main" %>
+  <%= javascript_include_tag "books" %>
+  <%= javascript_include_tag "rating" %>
+  <%= javascript_include_tag "modernizr" %>
+  <%= javascript_include_tag "static_pages" %>
+</html>

@@ -1,0 +1,114 @@
+<div class="manage">
+  <div class="btn-head">
+    <%= link_to t("users.new_user"), new_admin_user_path, remote: true,
+      class: "btn btn-success btn-new" %>
+    <%= link_to t("export"), admin_users_path(format: :xlsx),
+      class: "btn btn-danger btn-export" %>
+  </div>
+  <div class="panel panel-default filterable">
+    <div class="header">
+      <button class="btn btn-default btn-xs btn-filter">
+        <span class="glyphicon glyphicon-filter"></span>
+      </button>
+      <strong><%= t "users.list_user" %></strong>
+      <% flash.each do |key, message| %>
+        <span class="alert-<%= key %>"><%= message %></span>
+      <% end %>
+    </div>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="filters">
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "name" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "email" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "phone" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "address" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "users.role" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "users.activated" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "books.image" %>" disabled>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "index", collection: @users, as: :user %>
+      </tbody>
+    </table>
+    <%= will_paginate @users %>
+  </div>
+</div>
+<div class="search-button">
+  <div>
+    <div class="search-by">
+      <%= form_tag admin_users_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Name" %>
+        <%= text_field_tag :key, params[:key],
+          placeholder: t("search") %>
+      <% end %>
+      <button class="search-by-button"><p><%= t "name" %></p></button>
+    </div>
+    <div class="search-by">
+      <%= form_tag admin_users_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Email" %>
+        <%= text_field_tag :key, params[:key],
+          placeholder: t("search") %>
+      <% end %>
+      <button class="search-by-button"><p><%= t "email" %></p></button>
+    </div>
+    <div class="search-by">
+      <%= form_tag admin_users_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Role" %>
+        <div id="key">
+          <%= radio_button_tag :admin, true, false, id: "radio-admin",
+            class: "rd-user" %>
+          <%= label_tag "radio-admin", class: "label-radio-user" do %>
+            <span></span> <%= t "admin" %>
+          <% end %>
+          <%= radio_button_tag :user, true, false, id: "radio-user",
+            class: "rd-user" %>
+          <%= label_tag "radio-user", class: "label-radio-user" do %>
+            <span></span> <%= t "user" %>
+          <% end %>
+        </div>
+      <% end %>
+      <button class="search-by-button"><p><%= t "users.role" %></p></button>
+    </div>
+    <div class="search-by">
+      <%= form_tag admin_users_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Activate" %>
+        <div id="key">
+          <%= radio_button_tag :activated, true, false, id: "radio-activated",
+            class: "rd-activate" %>
+          <%= label_tag "radio-activated", class: "label-radio-user" do %>
+            <span></span> <%= t "users.activated" %>
+          <% end %>
+          <%= radio_button_tag :not_activate, true, false, class: "rd-activate",
+            id: "radio-not-activate"%>
+          <%= label_tag "radio-not-activate", class: "label-radio-user" do %>
+            <span></span> <%= t "users.not_activate" %>
+          <% end %>
+        </div>
+      <% end %>
+      <button class="search-by-button"><p><%= t "users.activated" %></p></button>
+    </div>
+  </div>
+  <button class="glyphicon glyphicon-search"></button>
+</div>

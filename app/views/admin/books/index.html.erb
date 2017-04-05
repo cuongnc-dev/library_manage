@@ -1,0 +1,98 @@
+<div class="manage">
+  <div class="btn-head">
+    <%= link_to t("books.new_book"), new_admin_book_path, remote: true,
+      class: "btn btn-success btn-new" %>
+    <%= link_to t("export"), admin_books_path(format: :xlsx),
+      class: "btn btn-danger btn-export" %>
+  </div>
+  <div class="panel panel-default filterable">
+    <div class="header">
+      <button class="btn btn-default btn-xs btn-filter">
+        <span class="glyphicon glyphicon-filter"></span>
+      </button>
+      <strong><%= t "books.list_book" %></strong>
+      <% flash.each do |key, message| %>
+        <span class="alert-<%= key %>"><%= message %></span>
+      <% end %>
+    </div>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="filters">
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "books.title" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "author" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "category" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "publisher" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "books.current" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "books.pages" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "books.description" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "books.image" %>" disabled>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "index", collection: @books, as: :book %>
+      </tbody>
+    </table>
+    <%= will_paginate @books %>
+  </div>
+</div>
+<div class="search-button">
+  <div>
+    <div class="search-by">
+      <%= form_tag admin_books_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Book" %>
+        <%= text_field_tag :key, params[:key],
+          placeholder: t("search") %>
+      <% end %>
+      <button class="search-by-button"><p><%= t "books.title" %></p></button>
+    </div>
+    <div class="search-by">
+      <%= form_tag admin_books_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Author" %>
+        <%= text_field_tag :key, params[:key],
+          placeholder: t("search") %>
+      <% end %>
+      <button class="search-by-button"><p><%= t "author" %></p></button>
+    </div>
+    <div class="search-by">
+      <%= form_tag admin_books_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Category" %>
+        <%= text_field_tag :key, params[:key],
+          placeholder: t("search") %>
+      <% end %>
+      <button class="search-by-button"><p><%= t "category" %></p></button>
+    </div>
+    <div class="search-by">
+      <%= form_tag admin_books_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Publisher" %>
+        <%= text_field_tag :key, params[:key],
+          placeholder: t("search") %>
+      <% end %>
+      <button class="search-by-button"><p><%= t "publisher" %></p></button>
+    </div>
+  </div>
+  <button class="glyphicon glyphicon-search"></button>
+</div>

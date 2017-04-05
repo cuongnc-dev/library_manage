@@ -1,0 +1,53 @@
+<%= form_for current_user, html: {class: "col-md-6 col-md-offset-3"} do |f| %>
+  <% flash.each do |key, message| %>
+    <p class="alert-<%= key %>"><%= message %></p>
+  <% end %>
+  <div class="col-md-4 picture">
+    <div class="img-avatar">
+      <%= image_tag current_user.avatar.present? ? current_user.avatar : Settings.author_avatar,
+        alt: t("users.image_alt"), id: "thumb" %>
+    </div>
+    <div class="form-group">
+      <div>
+        <%= text_field "", nil, class: "form-control",
+          readonly: true, placeholder: t("users.choose_user_avatar") %>
+        <%= f.file_field :avatar, accept: Settings.type_image_accept,
+          class: "choose-book-img", onchange: "showMyImage(this)" %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8 info">
+    <div class="form-group has-float-label">
+      <%= f.text_field :name, class: "form-control", id: "name",
+        placeholder: t("required") %>
+      <%= f.label :name, t("name"), for: "name" %>
+    </div>
+    <div class="form-group has-float-label">
+      <%= f.text_field :email, class: "form-control", id: "email",
+        placeholder: t("required") %>
+      <%= f.label :email, t("email"), for: "email" %>
+    </div>
+    <div class="form-group has-float-label">
+      <%= f.phone_field :phone, class: "form-control", id: "phone",
+        placeholder: t("required") %>
+      <%= f.label :phone, t("phone"), for: "phone" %>
+    </div>
+    <div class="form-group has-float-label">
+      <%= f.phone_field :address, class: "form-control", id: "address",
+        placeholder: t("required") %>
+      <%= f.label :address, t("address"), for: "address" %>
+    </div>
+    <div class="form-group has-float-label">
+      <%= f.password_field :password, class: "form-control", id: "passwd",
+         placeholder: t("enter_password") %>
+      <%= f.label :password, t("passwd"), for: "passwd" %>
+    </div>
+    <div class="form-group has-float-label">
+      <%= f.password_field :password_confirmation, class: "form-control",
+        id: "passwd_confirm", placeholder: t("enter_password_confirm") %>
+      <%= f.label :password_confirmation, t("passwd_confirm"),
+        for: "passwd_confirm" %>
+    </div>
+  </div>
+  <%= f.submit t("update"), class: "btn btn-primary" %>
+<% end %>

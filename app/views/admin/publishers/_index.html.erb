@@ -1,0 +1,21 @@
+<tr>
+  <td><%= link_to (name_limit_publisher publisher.name),
+    admin_publisher_path(publisher), remote: true %></td>
+  <td><%= link_to (name_limit_publisher publisher.email),
+    admin_publisher_path(publisher), remote: true %></td>
+  <td><%= link_to publisher.phone, admin_publisher_path(publisher),
+    remote: true %></td>
+  <td><%= link_to (description_limit publisher.address),
+    admin_publisher_path(publisher), remote: true %></td>
+  <td class="image">
+    <%= link_to image_tag(publisher.image.present? ? publisher.image : ""),
+      admin_publisher_path(publisher), remote: true %>
+    <div class="edit-delete">
+      <%= link_to "", edit_admin_publisher_path(publisher), remote: true,
+        class: "glyphicon glyphicon-pencil" %>
+      <%= link_to "", admin_publisher_path(publisher), method: :delete,
+        data: {confirm: t("publishers.confirm_delete")},
+        class: "glyphicon glyphicon-remove" %>
+    </div>
+  </td>
+</tr>

@@ -1,0 +1,195 @@
+<div class="details-header">
+  <span class="glyphicon glyphicon-remove details-close"></span>
+  <h3><%= @book.title %></h3>
+</div>
+<div id="<%= @book.id %>" class="details-body col-md-12">
+  <div class="details-img">
+    <%= image_tag @book.image, alt: t("books.image_alt") %>
+  </div>
+  <div id="<%= current_user.id if logged_in? %>" class="details-info">
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <th><%= t("author") + ":" %></th>
+          <td>
+            <%= link_to @book.author_name,
+               books_path(key_word: @book.author_name,
+               find_by: Author.name) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= t("category") + ":" %></th>
+          <td>
+            <%= link_to @book.category_name,
+               books_path(key_word: @book.category_name,
+               find_by: Category.name) %>,
+            <%= link_to @book.subcategory_name,
+               books_path(key_word: @book.subcategory_name,
+               find_by: Subcategory.name) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= t("publisher") + ":" %></th>
+          <td>
+            <%= link_to @book.publisher_name,
+               books_path(key_word: @book.publisher_name,
+               find_by: Publisher.name) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= t("books.page_number") + ":" %></th>
+          <td><%= @book.page_number %></td>
+        </tr>
+        <tr>
+          <th><%= t("books.current") + ":" %></th>
+          <td><%= @book.current %></td>
+        </tr>
+        <tr>
+          <th><%= t("books.rating") + ":" %></th>
+          <td id='show-rating'>
+            <% if logged_in? %>
+              <input id="rating-book" class="rating" type="number" data-max="5"
+                data-min="1" value="<%= @avg_rating.round %>" data-inline
+                rate-id="<%= @rating.id unless @rating.nil? %>"
+                data-rating="<%= @current_rating %>" />
+              <span class="rate">
+                <%= @avg_rating %> <i class='glyphicon glyphicon-star'></i> /
+                <%= @rates.size %> <%= t "rates.people_rated" %>.
+                <% if @current_rating == 0 %><%= t "rates.not_rated" %>
+                <% else %><%= t "rates.you_rated" %> <%= @current_rating %>
+                <i class='glyphicon glyphicon-star'></i><% end %>
+              </span>
+              <span class="rating-book">
+                <span class="alert alert-success rated">
+                  <%= t "rates.rated_book" %>
+                </span>
+                <span class="alert alert-warning rated-error">
+                  <%= t "rates.rated_error" %>
+                </span>
+              </span>
+            <% else %>
+              <input id="rating-book" class="rating" type="number" data-inline
+                data-max="5" data-min="1" value="<%= @avg_rating.round %>" />
+              <span class="rate">
+                <%= @avg_rating %><i class='glyphicon glyphicon-star'></i> /
+                <%= @rates.size %> <%= t "rates.people_rated" %>
+              </span>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= t "like" + ":" %></th>
+          <td>
+            <% if logged_in? %>
+              <div id="<%= @liked.id if @liked.present? %>"
+                class="like-unlike col-md-12">
+                <span class="total-like">
+                  <%= @likes.size %> <%= t "people_like_this_book" %>
+                </span>
+                <% if @liked %>
+                  <span id="like-unlike"
+                    class="glyphicon glyphicon-thumbs-up like"
+                    data-toggle="tooltip" data-placement="left"
+                    data-title="<%= t "unlike_this_book" %>"></span>
+                <% else %>
+                  <span id="like-unlike"
+                    class="glyphicon glyphicon-thumbs-up unlike"
+                    data-toggle="tooltip" data-placement="left"
+                    data-title="<%= t "like_this_book" %>"></span>
+                <% end %>
+              </div>
+            <% else %>
+              <%= @likes.size %> <%= t "people_like_this_book" %>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <% if logged_in? %>
+      <div id="<%= @following.id if @following.present? %>"
+        class="borrow-follow-book">
+        <% if @request %>
+          <%= link_to t("view_request"), request_path(@request), method: :get,
+            remote: true, id: "borrow-book", class: "btn btn-success" %>
+        <% else %>
+          <% if @book.current > Settings.zero %>
+            <%= link_to t("borrow_book"), new_request_path(book: @book),
+              remote: true, id: "borrow-book", class: "btn btn-success" %>
+          <% end %>
+        <% end %>
+        <% if @following %>
+          <span class="btn btn-success follow-book destroy">
+            <i class="glyphicon glyphicon-ok"></i>
+            <%= t "following" %>
+          </span>
+        <% else %>
+          <span class="btn btn-default follow-book create">
+            <i class="glyphicon glyphicon-check"></i>
+            <%= t "follow" %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="details-description col-md-12">
+  <div class="tabbable-panel">
+    <div class="tabbable-line">
+      <ul class="nav nav-tabs ">
+        <li class="active">
+          <a href="#description" data-toggle="tab">
+            <h5><%= t "books.description" %></h5>
+          </a>
+        </li>
+        <li>
+          <a href="#comment" data-toggle="tab">
+            <h5><%= t "comment" %></h5>
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="description">
+          <p><%= raw @book.description %></p>
+        </div>
+        <div class="tab-pane" id="comment">
+          <% if logged_in? %>
+            <div class="form_comment">
+              <%= image_tag current_user.avatar.present? ? current_user.avatar : Settings.user_avatar,
+                alt: t("users.image_alt") %>
+              <%= form_for @comment, remote: true do |f| %>
+                <div class="form-group has-float-label">
+                  <%= f.text_area :content, rows: 2, class: "form-control",
+                    id: "content", placeholder: t("at_least"), resize: "none" %>
+                  <%= f.label :content, t("comment"), for: "content" %>
+                </div>
+                <%= f.hidden_field :book_id, value: @book.id %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.button "", id: "comment-submit",
+                  class: "glyphicon glyphicon-send" %>
+              <% end %>
+              <span class="alert message"></span>
+            </div>
+          <% else %>
+            <p>
+              <%= t "please" %>
+              <%= link_to t("login"), login_path, remote: true %>
+              <%= t "to_comment" %>
+            </p>
+          <% end %>
+          <% if @comments.empty? %>
+            <div class="list-group list-comments">
+              <p class="no-comment"><%= t "comments.no_comment" %></p>
+            </div>
+          <% else %>
+            <div class="list-group list-comments">
+              <%= render partial: "load_comments", collection: @comments,
+                as: :comment %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "rating" %>

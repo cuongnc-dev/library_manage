@@ -1,0 +1,65 @@
+$(function() {
+  var n = 0;
+  var str_result;
+  var fixed_notification = $(document).find('div.fixed-notification');
+  var notification = $(document).find('i.glyphicon-globe');
+  var number_notification = $(document).find('span.number-notification');
+  var number = parseInt(number_notification.html()) + 1;
+  var data_user_id = notification.attr('data-user-id');
+  App.notification = App.cable.subscriptions.create({
+    channel: 'NotificationChannel',
+    user_id: data_user_id
+  }, {
+    received: function(data) {
+      if (typeof number_notification.html() == 'undefined') {
+        number = 1;
+        $(document).find('i.glyphicon-globe').
+          html('<span class="number-notification">' + number + '</span>');
+      } else {
+        number_notification.html(number);
+      }
+      switch (data.type) {
+        case 0:
+          str_result = '<a href="/books/' + data.book_id + '">'
+            + '<p class="notification-' + n + '">' + data.username + ' '
+            + '<%= I18n.t("commented_on_book") %>' + ' ' + data.book_title
+            +'</p></a>';
+          break;
+        case 1:
+          str_result = '<a href="/books/' + data.book_id + '">'
+            + '<p class="notification-' + n + '">' + data.username + ' '
+            + '<%= I18n.t("publised_new_book") %>' + ' ' + data.book_title
+            + '</p></a>';
+          break;
+        case 2:
+          str_result = '<a href="/admin/requests">'
+            + '<p class="notification-' + n + '">' + data.username + ' '
+            + '<%= I18n.t("request_borrow_book") %>' + ' ' + data.book_title
+            + '</p></a>';
+          break;
+        case 3:
+          str_result = '<a href="/books/' + data.book_id + '">'
+            + '<p class="notification-' + n + '">'
+            + '<%= I18n.t("repond_borrow_book") %>'
+            + data.book_title + '<%= I18n.t("has_been") %>' + ' ' + data.status
+            + '</p></a>';
+          break;
+      }
+      fixed_notification.append(str_result);
+      var noti = $(document).find('p.notification-' + n);
+      noti.slideDown();
+      time = setTimeout(function(){
+        noti.fadeOut('slow');
+      }, 5000);
+      $(noti).on('mouseover', function (){
+        clearTimeout(time);
+      });
+      $(noti).on('mouseout', function (){
+        time = setTimeout(function(){
+          noti.fadeOut('slow');
+        }, 5000);
+      });
+      n++;
+    }
+  });
+}).call(this);

@@ -1,0 +1,13 @@
+<div class="container list-book">
+  <div class="row list-group">
+    <% if @books.present? %>
+      <%= render partial: "index", collection: @books, as: :book %>
+    <% else %>
+      <p><%= t "books.search_alert" %></p>
+    <% end %>
+  </div>
+</div>
+<div class="book-detail">
+  <div class="transparent"></div>
+  <div class="details"></div>
+</div>

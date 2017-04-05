@@ -1,0 +1,47 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title"><%= @author.name %></h3>
+    </div>
+    <div class="modal-body">
+      <div class="col-md-4 picture">
+        <div class="img-avatar bg">
+          <%= image_tag @author.avatar.present? ? @author.avatar : Settings.author_avatar,
+            id: "thumb" %>
+        </div>
+      </div>
+      <div class="col-md-8 info">
+        <div class="form-group has-float-label">
+          <input type="text" class="form-control" name="email"
+            value="<%= @author.email %>" disabled >
+          <label for="email"><%= t "email" %></label>
+        </div>
+        <div class="form-group has-float-label">
+          <input type="text" class="form-control" name="phone"
+            value="<%= @author.phone %>" disabled >
+          <label for="phone"><%= t "phone" %></label>
+        </div>
+        <div class="form-group has-float-label">
+          <input type="text" class="form-control" name="address"
+            value="<%= @author.address %>" disabled >
+          <label for="address"><%= t "address" %></label>
+        </div>
+        <div class="form-group has-float-label">
+          <input type="text" class="form-control" name="author_publisher_id"
+            value="<%= @author.publisher_name %>" disabled >
+          <label for="author_publisher_id"><%= t "publisher" %></label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <%= link_to t("authors.edit_author"), edit_admin_author_path(@author),
+        class: "edit", remote: true %>
+      <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">
+        <%= t "confirm" %>
+      </button>
+      <%= link_to t("authors.delete_author"), admin_author_path(@author),
+        class: "delete", method: :delete,
+        data: {confirm: t("authors.confirm_delete")} %>
+    </div>
+  </div>
+</div>

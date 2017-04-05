@@ -1,0 +1,34 @@
+<% provide(:title, t("home_page")) %>
+
+<nav id="cd-vertical-nav">
+  <ul>
+    <li>
+      <a href="#section1" data-number="1">
+        <span class="cd-dot"></span>
+        <span class="cd-label"><%= t "home" %></span>
+      </a>
+    </li>
+    <li>
+      <a href="#section2" data-number="2">
+        <span class="cd-dot"></span>
+        <span class="cd-label"><%= t "books.new_book" %></span>
+      </a>
+    </li>
+    <li>
+      <a href="#section3" data-number="3">
+        <span class="cd-dot"></span>
+        <span class="cd-label"><%= t "books.high_rating_book" %></span>
+      </a>
+    </li>
+  </ul>
+</nav>
+<a class="cd-nav-trigger cd-img-replace">Open navigation<span></span></a>
+<section id="section1" class="cd-section partial-home">
+  <%= render "home" %>
+</section>
+<section id="section2" class="cd-section partial-book">
+  <%= render "new_book" %>
+</section>
+<section id="section3" class="cd-section partial-book">
+  <%= render "high_rating_book" %>
+</section>

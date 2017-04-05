@@ -1,0 +1,13 @@
+<tr>
+  <td><%= subcategory.category_name %></td>
+  <td>
+    <%= subcategory.name %>
+    <div class="edit-delete">
+      <%= link_to "", edit_admin_subcategory_path(subcategory), remote: true,
+        class: "glyphicon glyphicon-pencil" %>
+      <%= link_to "", admin_subcategory_path(subcategory), method: :delete,
+        data: {confirm: t("categories.confirm_delete")},
+        class: "glyphicon glyphicon-remove delete" %>
+    </div>
+  </td>
+</tr>

@@ -1,0 +1,10 @@
+<section id="section1" class="cd-section partial-home">
+  <%= render "static_pages/home" %>
+</section>
+<div class="modal fade activate-pw">
+  <% if @user.password_reset_expired? %>
+    <%= render "password_resets/new" %>
+  <% else %>
+    <%= render "password_resets/edit" %>
+  <% end %>
+</div>

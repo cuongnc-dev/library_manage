@@ -1,0 +1,37 @@
+<div class="email">
+  <p><%= t("hi") + " " + @request.user_name %>,</p>
+  <p><%= t "respond_user_request_body" %></p>
+  <div class="request-info">
+    <table>
+      <tbody>
+        <tr>
+          <th><%= t("book") + ": " %></th>
+          <td><%= @request.book_title %></td>
+        </tr>
+        <tr>
+          <th><%= t("start_day") + ": " %></th>
+          <td><%= @request.start_day.strftime("%d/%m/%Y") %></td>
+        </tr>
+        <tr>
+          <th><%= t("end_day") + ": " %></th>
+          <td><%= @request.end_day.strftime("%d/%m/%Y") %></td>
+        </tr>
+        <tr>
+          <th><%= t("message") + ": " %></th>
+          <td><%= @request.content %></td>
+        </tr>
+        <tr>
+          <th><%= t("status") + ": " %></th>
+          <td>
+            <% if @request.accepted? %>
+              <%= t "accepted" %>
+            <% else %>
+              <%= t "rejected" %>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p><%= t "view_all_request" %> <%= link_to t("my_requests"), requests_url %></p>
+</div>

@@ -1,0 +1,15 @@
+<% if (col_number author_counter) % 10 == 1 %>
+  <div class="multi-column-dropdown">
+    <ul>
+      <li><%= link_to author.name, author_path(author) %></li>
+<% elsif (col_number author_counter) % 10 == 0 %>
+      <li><%= link_to author.name, author_path(author) %></li>
+    </ul>
+  </div>
+<% elsif (col_number author_counter) == @authors.size %>
+      <li><%= link_to author.name, author_path(author) %></li>
+    </ul>
+  </div>
+<% else %>
+  <li><%= link_to author.name, author_path(author) %></li>
+<% end %>

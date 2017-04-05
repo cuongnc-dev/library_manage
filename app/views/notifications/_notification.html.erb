@@ -1,0 +1,44 @@
+<li>
+  <% case %>
+  <% when notification.type_notification == Settings.zero %>
+    <%= link_to book_path(notification.book_id) do %>
+      <p>
+        <%= notification.comment.user_name + " " + t("commented_on_book") %>
+        <%= notification.book_title %>
+      </p>
+      <p class="time">
+        <%= (time_ago_in_words notification.created_at) << " " << t("ago") %>
+      </p>
+    <% end %>
+  <% when notification.type_notification == Settings.one %>
+    <%= link_to book_path(notification.book_id) do %>
+      <p>
+        <%= notification.book.author_name + " " + t("publised_new_book") %>
+        <%= notification.book_title %>
+      </p>
+      <p class="time">
+        <%= (time_ago_in_words notification.created_at) << " " << t("ago") %>
+      </p>
+    <% end %>
+  <% when notification.type_notification == Settings.two %>
+    <%= link_to admin_requests_path do %>
+      <p>
+        <%= notification.request.user_name + " " + t("request_borrow_book") %>
+        <%= notification.book_title %>
+      </p>
+      <p class="time">
+        <%= (time_ago_in_words notification.created_at) << " " << t("ago") %>
+      </p>
+    <% end %>
+  <% when notification.type_notification == Settings.three %>
+    <%= link_to book_path(notification.book_id) do %>
+      <p>
+        <%= t("repond_borrow_book") + notification.book_title %>
+        <%= t "has_been" + notification.request_status %>
+      </p>
+      <p class="time">
+        <%= (time_ago_in_words notification.created_at) << " " << t("ago") %>
+      </p>
+    <% end %>
+  <% end %>
+</li>

@@ -1,0 +1,115 @@
+<header class="fixed-menu">
+  <div class="header">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to "", root_path, class: "navbar-brand" %>
+    </div>
+    <button class="btn-search" data-toggle="modal" data-target="#modal-search"></button>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-left col-md-6">
+        <li class="<%= is_active("static_pages") %>">
+          <%= link_to t("home"), root_path %>
+        </li>
+        <li class="<%= is_active("books") %>">
+          <%= link_to t("book"), books_path  %>
+        </li>
+        <li class="dropdown <%= is_active("authors") %>">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <%= t "author" %>
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu column-<%= calc_column_menu @authors %>">
+            <%= render partial: "static_pages/author", collection: @authors,
+              as: :author %>
+          </ul>
+        </li>
+        <li class="dropdown <%= is_active("categories") %>">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <%= t "category" %>
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu column-<%= calc_column_menu @categories %>">
+            <%= render partial: "static_pages/category", collection: @categories,
+              as: :category %>
+          </ul>
+        </li>
+        <li class="dropdown <%= is_active("publishers") %>">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <%= t "publisher" %>
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu column-<%= calc_column_menu @publishers %>">
+            <%= render partial: "static_pages/publisher", collection: @publishers,
+              as: :publisher %>
+          </ul>
+        </li>
+      </ul>
+      <% if logged_in? %>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <%= link_to notifications_path, remote: true,
+              class: "dropdown-toggle notification", "data-toggle": "dropdown" do %>
+              <i data-user-id="<%= current_user.id %>"
+                class="glyphicon glyphicon-globe">
+                <% if @new_notifications.present? %>
+                  <span class="number-notification">
+                    <%= @new_notifications.size %>
+                  </span>
+                <% end %>
+              </i>
+            <% end %>
+            <ul class="notification dropdown-menu"></ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <ul>
+                <li>
+                  <%= image_tag current_user.avatar? ? current_user.avatar : Settings.user_avatar,
+                    alt: t("users.image_alt"), class: "circle" %>
+                </li>
+                <li><%= @current_user.name %> <b class="caret"></b></li>
+              </ul>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <%= link_to current_user do %>
+                  <i class="glyphicon glyphicon-user"></i>
+                  <%= t "profile" %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to requests_path do %>
+                  <i class="glyphicon glyphicon-send"></i>
+                  <%= t "view_request" %>
+                <% end %>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to logout_path, method: "delete" do %>
+                  <i class="glyphicon glyphicon-log-out"></i>
+                  <%= t "logout" %>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      <% else %>
+        <ul class="nav navbar-nav navbar-right col-md-2">
+          <li>
+            <%= link_to signup_path, remote: true do %>
+              <i class="glyphicon glyphicon-user"></i>
+              <%= t "signup" %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to login_path, remote: true do %>
+              <i class="glyphicon glyphicon-log-in"></i>
+              <%= t "login" %>
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</header>

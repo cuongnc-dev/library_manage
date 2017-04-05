@@ -1,0 +1,30 @@
+<div class="list-group-item comment-<%= comment.id %>">
+  <div class="row-picture">
+    <%= image_tag comment.user_avatar.present? ? comment.user_avatar : Settings.user_avatar,
+      alt: t("users.image_alt"), class: "circle" %>
+  </div>
+  <div class="row-content">
+    <div class="list-group-item-heading">
+      <%= comment.user_name %>
+      <span class="time <%= comment.id %>">
+        <%= (time_ago_in_words comment.created_at) << " " << t("ago") %>
+      </span>
+      <span class="alert update-message <%= comment.id %>"></span>
+    </div>
+    <p class="list-group-item-text <%= comment.id %>"><%= comment.content %></p>
+    <div class="list-group-item-text <%= comment.id %>">
+      <div contentEditable="true">
+        <%= comment.content %>
+      </div>
+      <button class="glyphicon glyphicon-pencil button-edit-comment"></button>
+    </div>
+  </div>
+  <% if current_user == comment.user || is_administrator? %>
+    <div class="comment-edit-delete">
+      <%= link_to t("edit"), "#", remote: true, id: comment.id,
+        class: "edit-comment" %>
+      <%= link_to t("delete"), comment_path(comment), remote: true,
+        method: :delete, data: {confirm: t("comments.confirm_delete")} %>
+    </div>
+  <% end %>
+</div>

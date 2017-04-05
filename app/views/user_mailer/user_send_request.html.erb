@@ -1,0 +1,28 @@
+<div class="email">
+  <p><%= t("hi") + " " + t("admin") %>,</p>
+  <p><%= t("user") + " " + @request.user_name
+    + t("user_send_request_body") %></p>
+  <div class="request-info">
+    <table>
+      <tbody>
+        <tr>
+          <th><%= t("book") + ": " %></th>
+          <td><%= @request.book_title %></td>
+        </tr>
+        <tr>
+          <th><%= t("start_day") + ": " %></th>
+          <td><%= @request.start_day.strftime("%d/%m/%Y") %></td>
+        </tr>
+        <tr>
+          <th><%= t("end_day") + ": " %></th>
+          <td><%= @request.end_day.strftime("%d/%m/%Y") %></td>
+        </tr>
+        <tr>
+          <th><%= t("message") + ": " %></th>
+          <td><%= @request.content %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p><%= t "view_admin_request" %> <%= link_to t("here"), admin_requests_url %></p>
+</div>

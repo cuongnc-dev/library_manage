@@ -1,0 +1,32 @@
+<div class="modal-dialog modal-sm">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title"><%= t("requests.edit_request") %></h4>
+    </div>
+    <div class="modal-body">
+      <%= form_for [:admin, @request], remote: true do |f| %>
+        <div class="form-group has-float-label">
+          <% if @request.processing? %>
+            <%= f.select :status, options_for_select([
+              [t("accepted"), "accepted"], [t("rejected"), "rejected"]],
+              @request.status), {}, class: "form-control" %>
+          <% elsif @request.accepted? %>
+            <%= f.select :status, options_for_select([
+              [t("rejected"), "rejected"], [t("borrowed"), "borrowed"]],
+              @request.status), {}, class: "form-control" %>
+          <% elsif @request.rejected? %>
+            <%= f.select :status, options_for_select([
+              [t("accepted"), "accepted"]], @request.status), {},
+              class: "form-control" %>
+          <% else %>
+            <%= f.select :status, options_for_select([
+              [t("returned"), "returned"]], @request.status), {},
+              class: "form-control" %>
+          <% end %>
+          <label for="request_status"><%= t "status" %></label>
+        </div>
+        <%= f.submit t("update"), class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

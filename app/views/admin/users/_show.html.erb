@@ -1,0 +1,52 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title"><%= @user.name %></h3>
+    </div>
+    <div class="modal-body">
+      <div class="col-md-4 picture">
+        <div class="img-avatar bg">
+          <%= image_tag @user.avatar.present? ? @user.avatar : Settings.user_avatar,
+            id: "thumb" %>
+        </div>
+      </div>
+      <div class="col-md-8 info">
+        <div class="form-group has-float-label">
+          <input type="text" class="form-control" name="email"
+            value="<%= @user.email %>" disabled >
+          <label for="email"><%= t "email" %></label>
+        </div>
+        <div class="form-group has-float-label">
+          <input type="text" class="form-control" name="phone"
+            value="<%= @user.phone %>" disabled >
+          <label for="phone"><%= t "phone" %></label>
+        </div>
+        <div class="form-group has-float-label">
+          <input type="text" class="form-control" name="address"
+            value="<%= @user.address %>" disabled >
+          <label for="address"><%= t "address" %></label>
+        </div>
+        <div class="form-group has-float-label">
+          <input type="text" class="form-control" name="role"
+            value="<%= @user.is_admin? ? t("admin") : t("user") %>" disabled >
+          <label for="role"><%= t "role" %></label>
+        </div>
+        <div class="form-group has-float-label">
+          <input type="text" class="form-control" name="activated"
+            value="<%= @user.activated %>" disabled >
+          <label for="activated"><%= t "activated" %></label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <%= link_to t("users.edit_user"), edit_admin_user_path(@user),
+        class: "edit", remote: true %>
+      <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">
+        <%= t "confirm" %>
+      </button>
+      <%= link_to t("users.delete_user"), admin_user_path(@user),
+        class: "delete", method: :delete,
+        data: {confirm: t("users.confirm_delete")} %>
+    </div>
+  </div>
+</div>

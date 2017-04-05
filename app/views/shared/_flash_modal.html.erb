@@ -1,0 +1,14 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-body">
+      <% flash.each do |key, message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
+        <%= t "confirm" %>
+      </button>
+    </div>
+  </div>
+</div>

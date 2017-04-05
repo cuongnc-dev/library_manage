@@ -1,0 +1,54 @@
+<div class="container">
+  <div id="new_book_carousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <% @new_books.each_with_index do |book, index| %>
+        <div class="item <%= index == 0 ? 'active' : '' %>">
+          <div class="book-img">
+            <%= link_to image_tag(book.image, alt: t("books.image_alt")),
+              book_path(book) %>
+          </div>
+          <div class="book-info">
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <th><%= t("books.title") + ":" %></th>
+                  <td><%= book.title %></td>
+                </tr>
+                <tr>
+                  <th><%= t("author") + ":" %></th>
+                  <td><%= book.author_name %></td>
+                </tr>
+                <tr>
+                  <th><%= t("category") + ":" %></th>
+                  <td><%= book.subcategory_name %></td>
+                </tr>
+                <tr>
+                  <th><%= t("publisher") + ":" %></th>
+                  <td><%= book.publisher_name %></td>
+                </tr>
+                <tr>
+                  <th><%= t("books.page_number") + ":" %></th>
+                  <td><%= book.page_number %></td>
+                </tr>
+                <tr>
+                  <th><%= t("books.description") + ":" %></th>
+                  <td><%= raw home_description_limit book.description %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="controls">
+      <ul class="nav nav-pill nav-justified">
+        <% @new_books.each_with_index do |book, index| %>
+          <li data-target="#new_book_carousel" data-slide-to="<%= index %>"
+            class=<%= index == 0 ? "active" : "" %>>
+            <a href="#"><%= home_title_limit_book book.title %></a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

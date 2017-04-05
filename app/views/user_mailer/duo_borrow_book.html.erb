@@ -1,0 +1,30 @@
+<div class="email">
+  <p><%= t("hi") + " " + @user.name %>,</p>
+  <p><%= t "duo_borrow_book_body" %></p>
+  <p><%= t "view_your_request" %></p>
+  <% @requests.each do |request| %>
+    <div class="request-info">
+    <table>
+      <tbody>
+        <tr>
+          <th><%= t("book") + ": " %></th>
+          <td><%= request.book_title %></td>
+        </tr>
+        <tr>
+          <th><%= t("start_day") + ": " %></th>
+          <td><%= request.start_day.strftime("%d/%m/%Y") %></td>
+        </tr>
+        <tr>
+          <th><%= t("end_day") + ": " %></th>
+          <td><%= request.end_day.strftime("%d/%m/%Y") %></td>
+        </tr>
+        <tr>
+          <th><%= t("message") + ": " %></th>
+          <td><%= request.content %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <% end %>
+  <p><%= t "view_all_request" %> <%= link_to t("my_requests"), requests_url %></p>
+</div>

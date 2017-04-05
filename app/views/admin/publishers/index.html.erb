@@ -1,0 +1,70 @@
+<div class="manage">
+  <div class="btn-head">
+    <%= link_to t("publishers.new_publisher"), new_admin_publisher_path,
+      remote: true, class: "btn btn-success btn-new" %>
+    <%= link_to t("export"), admin_publishers_path(format: :xlsx),
+      class: "btn btn-danger btn-export" %>
+  </div>
+  <div class="panel panel-default filterable">
+    <div class="header">
+      <button class="btn btn-default btn-xs btn-filter">
+        <span class="glyphicon glyphicon-filter"></span>
+      </button>
+      <strong><%= t "publishers.list_publisher" %></strong>
+      <% flash.each do |key, message| %>
+        <span class="alert-<%= key %>"><%= message %></span>
+      <% end %>
+    </div>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="filters">
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "name" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "email" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "phone" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "address" %>" disabled>
+          </th>
+          <th>
+            <input type="text" class="form-control"
+              placeholder="<%= t "books.image" %>" disabled>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "index", collection: @publishers, as: :publisher %>
+      </tbody>
+    </table>
+    <%= will_paginate @publishers %>
+  </div>
+</div>
+<div class="search-button">
+  <div>
+    <div class="search-by">
+      <%= form_tag admin_publishers_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Name" %>
+        <%= text_field_tag :key, params[:key],
+          placeholder: t("search") %>
+      <% end %>
+      <button class="search-by-button"><p><%= t "name" %></p></button>
+    </div>
+    <div class="search-by">
+      <%= form_tag admin_publishers_path, method: :get do %>
+        <%= hidden_field_tag :find_by, "Email" %>
+        <%= text_field_tag :key, params[:key],
+          placeholder: t("search") %>
+      <% end %>
+      <button class="search-by-button"><p><%= t "email" %></p></button>
+    </div>
+  </div>
+  <button class="glyphicon glyphicon-search"></button>
+</div>

@@ -1,0 +1,60 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button class="close" data-dismiss="modal" aria-hidden="true">
+        <small><span class="glyphicon glyphicon-remove"></span></small>
+      </button>
+      <h3 class="modal-title"><%= t "your_request" %></h3>
+    </div>
+    <div class="modal-body show-request">
+      <div class="form-group input-group">
+        <span class="form-group has-float-label">
+          <input type="text" id="start_day_value" class="form-control"
+            value="<%= @request.start_day.strftime("%d/%m/%Y") %>" readonly>
+          <label for="start_day_value"><%= t "start_day" %></label>
+        </span>
+        <span class="form-group has-float-label">
+          <input type="text" id="end_day_value" class="form-control"
+            value="<%= @request.end_day.strftime("%d/%m/%Y") %>" readonly>
+          <label for="end_day_value"><%= t "end_day" %></label>
+        </span>
+      </div>
+      <div class="form-group has-float-label">
+        <textarea id="request_content_value" class="form-control" rows="5"
+          readonly>
+          <%= @request.content %>
+        </textarea>
+        <label for="request_content_value"><%= t "message" %></label>
+      </div>
+      <div class="form-group has-float-label">
+        <input type="text" id="status_value" class="form-control"
+          value="<% case when @request.processing? %><%= t "processing" %>
+          <% when @request.accepted? %><%= t "accepted" %>
+          <% when @request.rejected? %><%= t "rejected" %>
+          <% when @request.borrowed? %><%= t "borrowed" %>
+          <% else %><%= t "returned" %>
+          <% end %>" readonly>
+        <label for="status_value"><%= t "status" %></label>
+      </div>
+      <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">
+        <%= t "confirm" %>
+      </button>
+    </div>
+    <% if !@request.accepted? && !@request.borrowed? ||
+      @request.end_day < Time.zone.now %>
+      <div class="modal-footer">
+        <% if @request.processing? %>
+          <%= link_to t("edit_request"),
+            edit_request_path(id: @request, book: @request.book_id),
+            remote: true, class: "edit-request" %>
+        <% end %>
+        <% if !@request.accepted? && !@request.borrowed? ||
+          @request.end_day < Time.zone.now %>
+          <%= link_to t("delete_request"), request_path(@request), method: :delete,
+            data: {confirm: t("confirm_delete")}, class: "delete-request",
+            remote: true %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

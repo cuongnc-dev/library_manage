@@ -1,0 +1,9 @@
+<%= t("hi") + " " + t("admin") %>,
+
+<%= t("user") + " " + @request.user_name
+    + t("user_send_request_body") %>
+<%= t("book") + ": " + @request.book_title %>
+<%= t("start_day") + ": " %><%= @request.start_day.strftime("%d/%m/%Y") %>
+<%= t("end_day") + ": " %><%= @request.end_day.strftime("%d/%m/%Y") %>
+<%= t("message") + ": " + @request.content %>
+<%= t "view_admin_request" %> <%= link_to t("here"), admin_requests_url %>

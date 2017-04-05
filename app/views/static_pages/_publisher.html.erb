@@ -1,0 +1,19 @@
+<% if (col_number publisher_counter) % 10 == 1 %>
+  <div class="multi-column-dropdown">
+    <ul>
+      <li><%= link_to publisher.name, books_path(key_word: publisher.name,
+        find_by: Publisher.name) %></li>
+<% elsif (col_number publisher_counter) % 10 == 0 %>
+      <li><%= link_to publisher.name, books_path(key_word: publisher.name,
+        find_by: Publisher.name) %></li>
+    </ul>
+  </div>
+<% elsif (col_number publisher_counter) == @publishers.size %>
+      <li><%= link_to publisher.name, books_path(key_word: publisher.name,
+        find_by: Publisher.name) %></li>
+    </ul>
+  </div>
+<% else %>
+  <li><%= link_to publisher.name, books_path(key_word: publisher.name,
+        find_by: Publisher.name) %></li>
+<% end %>
