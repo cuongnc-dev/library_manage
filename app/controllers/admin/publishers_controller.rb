@@ -39,7 +39,7 @@ class Admin::PublishersController < ApplicationController
   def create
     @publisher = Publisher.new publisher_params
     if @publisher.save
-      flash[:success] = t "publishers.add_publisher_success"
+      flash.now[:success] = t "publishers.add_publisher_success"
       redirect_to admin_publishers_url
     else
       render :new
@@ -51,7 +51,7 @@ class Admin::PublishersController < ApplicationController
 
   def update
     if @publisher.update_attributes publisher_params
-      flash[:success] = t "publishers.update_success"
+      flash.now[:success] = t "publishers.update_success"
       redirect_to admin_publishers_url
     else
       render :edit
@@ -60,9 +60,9 @@ class Admin::PublishersController < ApplicationController
 
   def destroy
     if @publisher.destroy
-      flash[:success] = t "publishers.delete_success"
+      flash.now[:success] = t "publishers.delete_success"
     else
-      flash[:danger] = t "publishers.delete_fail"
+      flash.now[:danger] = t "publishers.delete_fail"
     end
     redirect_to admin_publishers_url
   end
@@ -72,7 +72,7 @@ class Admin::PublishersController < ApplicationController
   def load_publisher
     @publisher = Publisher.find_by id: params[:id]
     return if @publisher
-    flash[:warning] = t "publishers.publisher_not_found"
+    flash.now[:warning] = t "publishers.publisher_not_found"
     redirect_to admin_publishers_url
   end
 

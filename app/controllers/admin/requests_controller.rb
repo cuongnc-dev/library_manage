@@ -55,8 +55,9 @@ class Admin::RequestsController < ApplicationController
 
   def update
     if @request.update_attributes request_params
-      flash[:success] = t "requests.update_success"
+      flash.now[:success] = t "requests.update_success"
       if @request.accepted? || @request.rejected?
+        create_respond_notification @request
         RespondNotificationJob.perform_now @request
         @request.email_respond_request @request
       end

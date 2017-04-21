@@ -63,10 +63,15 @@
     .navbar-nav > li > a {
       font-weight: bold;
     }
-    .navbar-left > li > a {
-      min-height: 60px;
-      padding-top: 22px;
-      text-transform: uppercase;
+    .navbar-left {
+      > li > a {
+        min-height: 60px;
+        padding-top: 22px;
+        text-transform: uppercase;
+      }
+      > .dropdown > .dropdown-menu {
+        margin-top: 10px;
+      }
     }
     .navbar-left > li.active {
       background-color: #009ee2;
@@ -76,6 +81,20 @@
     }
     .navbar-right {
       margin-right: 50px;
+      > .dropdown > .dropdown-menu {
+        margin-top: 10px;
+      }
+      > .dropdown.open > a.notification > i:after {
+        position: absolute;
+        bottom: -25px;
+        left: 5%;
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid white;
+      }
       > li {
         > a {
           text-decoration: none;
@@ -129,26 +148,34 @@ a.notification {
     }
   }
 }
-
-ul.notification {
-  max-height: 580px;
-  overflow: auto;
-  > li > a {
-    width: 350px;
-    white-space: normal;
-    > p {
-      margin-bottom: 0;
-    }
-    > p.time {
-      text-align: right;
-      color: #ccc;
-      font-size: 12px;
-      margin-bottom: 0;
-    }
-    &:hover {
-      font-weight: normal;
+div.notification {
+  width: 400px;
+   > p {
+    padding: 10px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  ul.notification {
+    max-height: 580px;
+    overflow: auto;
+    > li > a {
+      width: 400px;
+      white-space: normal;
+      > p {
+        margin-bottom: 0;
+      }
       > p.time {
+        text-align: right;
+        color: #ccc;
+        font-size: 12px;
+        margin-bottom: 0;
+      }
+      &:hover {
         font-weight: normal;
+        > p.time {
+          font-weight: normal;
+        }
       }
     }
   }

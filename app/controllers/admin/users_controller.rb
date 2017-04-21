@@ -50,7 +50,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new user_params
     if @user.save
-      flash[:success] = t "users.add_user_success"
+      flash.now[:success] = t "users.add_user_success"
       redirect_to admin_users_url
     else
       render :new
@@ -62,7 +62,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     if @user.update_attributes user_params
-      flash[:success] = t "users.update_success"
+      flash.now[:success] = t "users.update_success"
       redirect_to admin_users_url
     else
       render :edit
@@ -74,7 +74,7 @@ class Admin::UsersController < ApplicationController
   def load_user
     @user = User.find_by id: params[:id]
     return if @user
-    flash[:warning] = t "users.user_not_found"
+    flash.now[:warning] = t "users.user_not_found"
     redirect_to admin_users_url
   end
 

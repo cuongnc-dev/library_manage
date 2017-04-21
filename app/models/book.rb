@@ -16,8 +16,6 @@ class Book < ApplicationRecord
   validates :title, presence: true, length: {maximum: Settings.max_name_email}
   validates :image, presence: true
   validates :description, presence: true
-  validates :current, presence: true
-  validates :page_number, presence: true
   validates :author_id, presence: true
   validates :subcategory_id, presence: true
   validates :publisher_id, presence: true

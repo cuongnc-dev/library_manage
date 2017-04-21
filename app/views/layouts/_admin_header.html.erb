@@ -22,7 +22,10 @@
               <% end %>
             </i>
           <% end %>
-          <ul class="notification dropdown-menu"></ul>
+          <div class="notification dropdown-menu">
+            <p><%= t "notification" %></p>
+            <ul class="notification"></ul>
+          </div>
         </li>
         <li>
           <%= link_to admin_logout_path, method: "delete" do %>

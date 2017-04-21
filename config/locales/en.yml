@@ -136,8 +136,9 @@ en:
   commented_on_book: "commented on book"
   publised_new_book: "published new book"
   here: "here"
-  repond_borrow_book: "Your request to borrow book"
+  respond_borrow_book: "Your request to borrow book"
   has_been: "has been"
+  notification: "Notification"
   false: "false"
   activerecord:
     errors:

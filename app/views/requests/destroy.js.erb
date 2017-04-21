@@ -1,3 +1,7 @@
-$('#ajax-modal').modal('hide');
-$('#borrow-book').remove();
-$('.borrow-follow-book').prepend('<%= link_to t("borrow_book"), new_request_path(book: @book), remote: true, id: "borrow-book", class: "btn btn-success" %>');
+if (window.location.pathname == '/requests') {
+  window.location.reload();
+} else {
+  $('#ajax-modal').modal('hide');
+  $('#borrow-book').remove();
+  $('.borrow-follow-book').prepend('<%= link_to t("borrow_book"), new_request_path(book: @book), remote: true, id: "borrow-book", class: "btn btn-success" %>');
+}

@@ -40,9 +40,9 @@ $(function() {
         case 3:
           str_result = '<a href="/books/' + data.book_id + '">'
             + '<p class="notification-' + n + '">'
-            + '<%= I18n.t("repond_borrow_book") %>'
-            + data.book_title + '<%= I18n.t("has_been") %>' + ' ' + data.status
-            + '</p></a>';
+            + '<%= I18n.t("respond_borrow_book") %>'
+            + data.book_title + ' ' + '<%= I18n.t("has_been") %>' + ' '
+            + data.status + '</p></a>';
           break;
       }
       fixed_notification.append(str_result);

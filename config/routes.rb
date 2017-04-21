@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  mount ActionCable.server => "/cable"
-  mount Ckeditor::Engine => "/ckeditor"
   root "static_pages#index"
   get "signup", to: "users#new"
   get "login", to: "sessions#new"
@@ -35,4 +33,6 @@ Rails.application.routes.draw do
     resources :requests
     resources :users
   end
+  mount ActionCable.server => "/cable"
+  mount Ckeditor::Engine => "/ckeditor"
 end

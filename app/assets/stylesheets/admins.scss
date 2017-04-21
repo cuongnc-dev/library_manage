@@ -208,42 +208,54 @@
     }
   }
   .navbar-right {
-    > li > a {
-      padding: 0;
-      &:focus, &:hover {
-        background-color: white !important;
+    > li {
+      > div.notification {
+        margin-top: 10px
       }
-      &.notification {
-        margin-right: 40px;
-      }
-      > i {
-        padding: 0 15px;
-        line-height: 50px;
-        > span.number-notification {
+      &.open {
+        > a > i:after {
           position: absolute;
-          top: 9px;
-          right: 9px;
+          bottom: -10px !important;
+          left: 30% !important;
         }
       }
-      > ul {
-        height: 50px;
-        margin-right: 5px;
-        > li {
-          float: left;
-          margin: 0 5px;
+      > a {
+        padding: 0;
+        &:focus, &:hover {
+          background-color: white !important;
+        }
+        &.notification {
+          margin-right: 40px;
+        }
+        > i {
+          padding: 0 15px;
           line-height: 50px;
-          color: #059;
-          > img {
-            width: 30px;
-            height: 30px;
-            border-radius: 100%;
+          > span.number-notification {
+            position: absolute;
+            top: 9px;
+            right: 9px;
           }
         }
-        &:hover {
-          background-color: #00bcd4;
-          @include transition();
+        > ul {
+          height: 50px;
+          margin-right: 5px;
           > li {
-            color: white;
+            float: left;
+            margin: 0 5px;
+            line-height: 50px;
+            color: #059;
+            > img {
+              width: 30px;
+              height: 30px;
+              border-radius: 100%;
+            }
+          }
+          &:hover {
+            background-color: #00bcd4;
+            @include transition();
+            > li {
+              color: white;
+            }
           }
         }
       }

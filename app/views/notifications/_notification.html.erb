@@ -13,8 +13,8 @@
   <% when notification.type_notification == Settings.one %>
     <%= link_to book_path(notification.book_id) do %>
       <p>
-        <%= notification.book.author_name + " " + t("publised_new_book") %>
-        <%= notification.book_title %>
+        <%= t("author") + " " + notification.book.author_name %>
+        <%= t("publised_new_book") + " " + notification.book_title %>
       </p>
       <p class="time">
         <%= (time_ago_in_words notification.created_at) << " " << t("ago") %>
@@ -30,11 +30,11 @@
         <%= (time_ago_in_words notification.created_at) << " " << t("ago") %>
       </p>
     <% end %>
-  <% when notification.type_notification == Settings.three %>
+  <% else %>
     <%= link_to book_path(notification.book_id) do %>
       <p>
-        <%= t("repond_borrow_book") + notification.book_title %>
-        <%= t "has_been" + notification.request_status %>
+        <%= t("respond_borrow_book") + " " + notification.book_title %>
+        <%= t("has_been") + " " + notification.request_status %>
       </p>
       <p class="time">
         <%= (time_ago_in_words notification.created_at) << " " << t("ago") %>

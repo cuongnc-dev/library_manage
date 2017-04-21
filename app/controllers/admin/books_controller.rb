@@ -4,8 +4,8 @@ class Admin::BooksController < ApplicationController
   before_action :load_author, exept: [:show, :destroy]
   before_action :load_category, exept: [:show, :destroy]
   before_action :load_publisher, exept: [:show, :destroy]
-  skip_before_filter :verify_authenticity_token, only: [:create, :update]
   before_action :load_notification
+  skip_before_filter :verify_authenticity_token, only: [:create, :update]
 
   layout "admin"
 
@@ -46,11 +46,11 @@ class Admin::BooksController < ApplicationController
   def create
     @book = Book.new book_params
     if @book.save
+      flash.now[:success] = t "books.add_book_success"
       users_follow = User.list_users_follow_author @book.author_id
       create_book_notification @book, users_follow
       BookNotificationJob.perform_now @book, users_follow
-      EmailBookJob.perform_now users_follow, @book if @users_follow.present?
-      flash[:success] = t "books.add_book_success"
+      EmailBookJob.perform_now users_follow, @book if users_follow.present?
       redirect_to admin_books_url
     else
       render :new
@@ -62,7 +62,7 @@ class Admin::BooksController < ApplicationController
 
   def update
     if @book.update_attributes book_params
-      flash[:success] = t "books.update_success"
+      flash.now[:success] = t "books.update_success"
       redirect_to admin_books_url
     else
       render :edit
@@ -71,9 +71,9 @@ class Admin::BooksController < ApplicationController
 
   def destroy
     if @book.destroy
-      flash[:success] = t "books.delete_success"
+      flash.now[:success] = t "books.delete_success"
     else
-      flash[:danger] = t "books.delete_fail"
+      flash.now[:danger] = t "books.delete_fail"
     end
     redirect_to admin_books_url
   end
@@ -83,7 +83,7 @@ class Admin::BooksController < ApplicationController
   def load_book
     @book = Book.find_by id: params[:id]
     return if @book
-    flash[:warning] = t "books.book_not_found"
+    flash.now[:warning] = t "books.book_not_found"
     redirect_to admin_books_url
   end
 
